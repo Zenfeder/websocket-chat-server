@@ -1,0 +1,22 @@
+{
+  "name": "webrtc",
+  "version": "1.0.0",
+  "description": "A real-time communication web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webrtc",
+    "websocket",
+    "real",
+    "time",
+    "communication"
+  ],
+  "author": "陈果",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
