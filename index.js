@@ -36,6 +36,7 @@ io.on('connection', socket => {
     }
     console.log(socketCache)
   })
+  // 重新建立连接还要做更多事情，比如群组关系也要重建
   socket.on('join reconnect', nickname => {
     let index = socketCache.findIndex(elem => elem.nickname === nickname)
     if (index === -1) {
@@ -77,6 +78,17 @@ io.on('connection', socket => {
     if (receiver) {
       io.to(receiver.socketId).emit('receive private message', { sendNickname, message })
     }
+  })
+  socket.on('join group', ({ nickname, groupName }) => {
+    socket.join(groupName, () => {
+      console.log(`[join group] ${nickname} 加入群组 ${groupName}`)
+      io.to(socket.id).emit('join group success')
+      io.to(groupName).emit('user join group', { nickname, groupName })
+    })
+  })
+  socket.on('send group message', ({ sendNickname, groupName, message }) => {
+    console.log(`[send group message] ${sendNickname} 在群组 ${groupName} 里说: ${message}`)
+    io.to(groupName).emit('receive group message', { sendNickname, message })
   })
 })
 
