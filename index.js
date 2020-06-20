@@ -5,12 +5,6 @@ const io = require('socket.io')(http)
 
 const socketCache = []
 
-app.use(express.static('.'))
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/static/index.html')
-})
-
 io.on('connection', socket => {
   console.log(`[connection] ${socket.id}`)
   socket.on('disconnect', reason => {
